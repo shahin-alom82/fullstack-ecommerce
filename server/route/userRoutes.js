@@ -2,7 +2,6 @@ import express from 'express'
 import { adminLogin, getUser, removeUser, updateUser, userLogin, userRegister } from '../controllers/userControler.js';
 
 const userRouter = express.Router()
-
 userRouter.post('/register', userRegister);
 userRouter.post('/login', userLogin);
 userRouter.post('/admin', adminLogin);
