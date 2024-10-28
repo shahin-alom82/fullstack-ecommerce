@@ -9,7 +9,8 @@ const createToken = (user) => {
             {
                   _id: user._id,
                   email: user.email,
-                  name: user.name
+                  name: user.name,
+                  isAdmin: user.isAdmin
             },
             process.env.JWT_SECRET,
             { expiresIn: '10h' }
@@ -76,7 +77,7 @@ const userLogin = async (req, res) => {
 // User Register Start
 const userRegister = async (req, res) => {
       try {
-            const { name, email, password } = req.body;
+            const { name, email, password, isAdmin } = req.body;
             // Request body varification
             if (!name) {
                   return res.json({
@@ -112,7 +113,7 @@ const userRegister = async (req, res) => {
             // Password validation
             if (password.length < 8) {
                   return res.json({
-                        success: true,
+                        success: false,
                         message: 'Password length should be equal or trater than 8 '
                   })
 
@@ -124,13 +125,14 @@ const userRegister = async (req, res) => {
             const newUser = new userModel({
                   name,
                   email,
-                  password: encryptedPassword
+                  password: encryptedPassword,
+                  isAdmin,
             })
             // Save user in database
             await newUser.save()
 
             // Success Register 
-            res.json({
+            return res.json({
                   success: true,
                   message: 'User Registered Successfully!'
             })
@@ -142,21 +144,57 @@ const userRegister = async (req, res) => {
 // User Register End
 
 //  Admin user Start
-const adminLogin = (req, res) => {
+const adminLogin = async (req, res) => {
       try {
-            const { email, password } = req.body
-            if (
-                  email === process.env.ADMIN_EMAIL &&
-                  password === process.env.ADMIN_PASSWORD
-            ) {
-                  const token = jwt.sign(email + password, process.env.JWT_SECRET)
-                  res.json({
+            const { email, password } = req.body;
+
+            // Input validation
+            if (!email) {
+                  return res.json({
+                        success: false,
+                        message: 'Email is required!'
+                  });
+            }
+
+            if (!password) {
+                  return res.json({
+                        success: false,
+                        message: 'Password is required!'
+                  });
+            }
+
+            // Check if user exists
+            const user = await userModel.findOne({ email });
+            if (!user) {
+                  return res.json({
+                        success: false,
+                        message: 'User does not exist!'
+                  });
+            }
+
+
+            if (!user?.isAdmin) {
+                  return res.json({
+                        success: false,
+                        message: "You are not authorized to login!"
+                  })
+            }
+
+            // Compare password
+            const isMatch = await bcrypt.compare(password, user.password);
+
+            if (isMatch && user.isAdmin) {
+                  const token = createToken(user)
+                  return res.json({
                         success: true,
                         token,
-                        message: 'Welcome admin user!'
-                  })
+                        message: 'Admin login successfully!'
+                  });
             } else {
-                  res.json({ success: true, message: 'Invalid credentials!' })
+                  return res.json({
+                        success: false,
+                        message: 'Password not matched, try again!'
+                  });
             }
 
       } catch (error) {
@@ -170,20 +208,19 @@ const adminLogin = (req, res) => {
 // Remove user Start
 const removeUser = async (req, res) => {
       try {
-            await userModel.findOneAndDelete(req.body._id)
+            await userModel.findOneAndDelete({ _id: req.body._id });
             return res.send({
                   success: true,
-                  message: 'User deleted successfully!'
-            })
+                  message: 'User deleted successfully!',
+            });
 
       } catch (error) {
-
-            console.log('Remove user error!', error)
-            res.json({ success: true, message: error?.message })
+            console.log('Remove user error!', error);
+            res.json({ success: false, message: error?.message || "Failed to delete user" });
       }
-
 };
 // Remove user End
+
 
 // Update user start
 const updateUser = async (req, res) => {
@@ -258,3 +295,22 @@ const getUser = async (req, res) => {
 
 
 export { userLogin, userRegister, adminLogin, removeUser, updateUser, getUser }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,6 @@
 import express from 'express'
 import { adminLogin, getUser, removeUser, updateUser, userLogin, userRegister } from '../controllers/userControler.js';
+import adminAuth from '../adminAuth.js';
 
 const userRouter = express.Router()
 userRouter.post('/register', userRegister);
@@ -7,6 +8,6 @@ userRouter.post('/login', userLogin);
 userRouter.post('/admin', adminLogin);
 userRouter.post('/remove', removeUser);
 userRouter.put('/update/:id', updateUser)
-userRouter.get('/users', getUser)
+userRouter.get('/users', adminAuth, getUser)
 
 export default userRouter;
