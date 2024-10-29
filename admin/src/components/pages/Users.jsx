@@ -53,10 +53,9 @@ const Users = ({ token }) => {
             getUserList()
       }, [])
 
+      
 
       // User Deleted
-
-
       const handleDelete = async (_id) => {
 
             const confrimDelete = window.confirm("Are you sure you want to remove this user?")
@@ -86,62 +85,7 @@ const Users = ({ token }) => {
       };
 
 
-
-
-
-      // const handleDelete = async (_id) => {
-      //       const confirmDelete = await Swal.fire({
-      //             title: "Are you sure?",
-      //             text: "You won't be able to revert this!",
-      //             icon: "warning",
-      //             showCancelButton: true,
-      //             confirmButtonColor: "#3085d6",
-      //             cancelButtonColor: "#d33",
-      //             confirmButtonText: "Yes, delete it!"
-      //       });
-
-      //       if (confirmDelete.isConfirmed) {
-      //             setLoading(true);
-      //             try {
-      //                   const res = await axios.post(serverUrl + "/api/user/remove", { _id });
-      //                   const data = res?.data;
-
-      //                   if (data?.success) {
-      //                         await Swal.fire({
-      //                               title: "Deleted!",
-      //                               text: data?.message,
-      //                               icon: "success",
-      //                               confirmButtonColor: "#3085d6",
-      //                         });
-      //                         await getUserList();
-      //                   } else {
-      //                         Swal.fire({
-      //                               title: "Error!",
-      //                               text: data?.message,
-      //                               icon: "error",
-      //                               confirmButtonColor: "#d33",
-      //                         });
-      //                   }
-      //             } catch (error) {
-      //                   console.log("Delete user error", error);
-      //                   Swal.fire({
-      //                         title: "Error!",
-      //                         text: "Error: " + error.message,
-      //                         icon: "error",
-      //                         confirmButtonColor: "#d33",
-      //                   });
-      //             } finally {
-      //                   setLoading(false);
-      //             }
-      //       }
-      // };
-
-
-
-
       // User Updated
-
-
       const handleUpdate = async (e, _id) => {
             e.preventDefault();
             const updatedUser = {
