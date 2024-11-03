@@ -2,7 +2,7 @@
 const List = () => {
       return (
             <div>
-                  <h1 className="text-xl font-medium text-gray-600"></h1>
+                  <h1 className="text-xl font-medium text-gray-600">List</h1>
             </div>
       );
 };

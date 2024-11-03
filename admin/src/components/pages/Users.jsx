@@ -4,7 +4,6 @@ import toast from "react-hot-toast"
 import Loader from "../ui/Loader";
 import { IoMdAdd } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import Swal from 'sweetalert2'
 
 import { FiEdit } from "react-icons/fi";
 
@@ -53,10 +52,14 @@ const Users = ({ token }) => {
             getUserList()
       }, [])
 
-      
+
 
       // User Deleted
-      const handleDelete = async (_id) => {
+      const handleDelete = async (_id, isAdmin) => {
+            if (isAdmin) {
+                  toast.error("Admin user cannot be deleted..");
+                  return;
+            }
 
             const confrimDelete = window.confirm("Are you sure you want to remove this user?")
             if (confrimDelete) {
@@ -186,7 +189,12 @@ const Users = ({ token }) => {
                                                                         <p className="hidden md:inline-block font-medium lg:text-sm text-xs">{item?.name}</p>
                                                                         <p className="font-medium lg:text-sm text-xs">{item?.email}</p>
                                                                         <p className={item?.isAdmin ? "font-medium lg:text-sm text-xs hidden md:inline-block" : "text-gray-600 font-medium lg:text-sm text-xs hidden md:inline-block"}>{item?.isAdmin ? "Admin" : "User"}</p>
-                                                                        <RiDeleteBin6Line onClick={() => handleDelete(item?._id)} className="cursor-pointer hover:text-red-500 duration-300 ease-in-out w-full lg:text-sm text-xs" />
+                                                                        {/* <RiDeleteBin6Line onClick={() => handleDelete(item?._id)} className={`cursor-pointer hover:text-red-500 duration-300 ease-in-out w-full lg:text-sm text-xs`} /> */}
+                                                                        <RiDeleteBin6Line
+                                                                              onClick={() => handleDelete(item?._id, item?.isAdmin)}
+                                                                              className={`cursor-pointer hover:text-red-500 duration-300 ease-in-out w-full lg:text-sm text-xs`}
+                                                                        />
+
                                                                         <FiEdit
                                                                               onClick={() => {
                                                                                     setSelectUser(item);

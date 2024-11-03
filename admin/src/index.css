@@ -8,3 +8,9 @@
 background-color: #112240;
 color: white;
 }
+
+@layer components {
+      .hoverEffect {
+            @apply duration-300 ease-in-out cursor-pointer
+      }
+}
