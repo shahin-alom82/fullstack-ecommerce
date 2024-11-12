@@ -13,7 +13,7 @@ const createToken = (user) => {
                   isAdmin: user.isAdmin
             },
             process.env.JWT_SECRET,
-            { expiresIn: '10h' }
+            { expiresIn: '20h' }
       );
 };
 

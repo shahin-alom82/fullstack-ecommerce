@@ -11,13 +11,13 @@ const SearchInput = () => {
                         placeholder="Product search here..."
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className="border border-gray-400 w-full py-1.5 rounded-full outline-none pl-4 pr-10 placeholder:text-gray-600 focus-visible:border-blue-500"
+                        className="border border-gray-400 w-full py-1.5 rounded-full outline-none pl-4 pr-10 placeholder:text-gray-600 focus-visible:border-blue-500 placeholder:text-sm text-sm text-gray-600"
                   />
                   {
                         search ?
-                              <IoClose size={20} onClick={() => setSearch("")} className="absolute top-[9px] right-4 hover:text-red-500 cursor-pointer text-gray-600" />
+                              <IoClose size={20} onClick={() => setSearch("")} className="absolute top-[7px] right-4 hover:text-red-500 cursor-pointer text-gray-600 tracking-wide" />
                               :
-                              <IoSearchSharp size={20} className="absolute top-[9px] right-4 text-gray-600" />
+                              <IoSearchSharp size={20} className="absolute top-[8px] right-4 text-gray-600" />
                   }
             </div>
       );

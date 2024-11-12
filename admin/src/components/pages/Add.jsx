@@ -86,8 +86,8 @@ const Add = ({ token }) => {
 
 
             } catch (error) {
-                  console.error('Product data uploading error:', error);
-                  toast.error(error.message || 'An error occurred while uploading the product');
+                  console.error('Product data uploading error', error);
+                  toast.error(error.message);
             } finally {
                   setLoading(false);
             }
@@ -338,3 +338,10 @@ const Add = ({ token }) => {
 };
 
 export default Add;
+
+
+
+
+
+
+
