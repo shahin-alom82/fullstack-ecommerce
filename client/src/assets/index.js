@@ -9,6 +9,7 @@ import saleOne from "../assets/sale/saleImgOne.jpg"
 import saleTwo from "../assets/sale/saleImgTwo.jpg"
 import saleThree from "../assets/sale/saleImgThree.jpg"
 import time from "../assets/products/blackwatch.jpg"
+import empty from '../assets/emptyCart.png'
 export {
       payment,
       logo,
@@ -20,5 +21,6 @@ export {
       saleOne,
       saleTwo,
       saleThree,
-      time
+      time,
+      empty
 }

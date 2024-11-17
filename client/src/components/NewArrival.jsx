@@ -5,15 +5,17 @@ import Product from "./Product";
 import Loader from "./Loader";
 
 const NewArrival = () => {
+
       const [products, setProducts] = useState([]);
       const [loading, setLoading] = useState(false);
       const [total, setTotal] = useState(0);
 
       useEffect(() => {
+            const serverUrl = import.meta.env.VITE_BACKEND_URL;
             const fetchData = async () => {
                   try {
                         setLoading(true);
-                        const res = await fetch("http://localhost:8000/api/product/list");
+                        const res = await fetch(`${serverUrl}/api/product/list`);
                         const data = await res.json();
                         if (data?.success) {
                               setProducts(data?.products);
@@ -80,7 +82,7 @@ const NewArrival = () => {
                               <Slider {...settings}>
                                     {
                                           loading ?
-                                                <div><Loader/></div>
+                                                <div><Loader /></div>
                                                 :
                                                 products.map((item) => (
                                                       <Product key={item?._id} item={item} />

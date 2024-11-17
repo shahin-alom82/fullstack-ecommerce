@@ -1,49 +1,26 @@
-// import Badge from "./Badge";
-// import PriceContainer from "./PriceContainer";
-
-// const Product = ({ item }) => {
-//       return (
-//             <div className="w-full relative group pr-4">
-//                   {/* Product Image Section */}
-//                   <div className="h-80 overflow-hidden relative">
-//                         <div className="w-full h-full overflow-hidden">
-//                               <img src={item?.image[0]} alt="productImage" className="w-full h-full hover:scale-110 duration-300 cursor-pointer rounded-t-md" />
-//                         </div>
-//                         <div className="absolute top-2 right-2">
-//                               {
-//                                     !item?.offer && <p><Badge className={"rounded"} title='Sale' /></p>
-//                               }
-//                         </div>
-//                         <div className="mt-2">
-//                               <p>{item?.name}</p>
-//                               <PriceContainer item={item} />
-//                         </div>
-//                   </div>
-//             </div>
-//       );
-// };
-
-// export default Product;
 
 
 
 
-
+import { Link } from "react-router-dom";
 import AddToCartButton from "./AddToCartButton";
 import Badge from "./Badge";
 import PriceContainer from "./PriceContainer";
+import { twMerge } from "tailwind-merge";
 
-const Product = ({ item }) => {
+const Product = ({ item, className }) => {
       return (
-            <div className="w-full relative group pr-4">
+            <div className={twMerge("w-full relative group pr-4", className)}>
                   {/* Product Image Section */}
-                  <div className="h-80 overflow-hidden relative">
+                  <div className="h-80 overflow-hidden relative border-l border-r border-t  border-gray-300">
                         <div className="w-full h-full overflow-hidden">
-                              <img
-                                    src={item?.image[0]}
-                                    alt="productImage"
-                                    className="w-full h-full hover:scale-110 duration-300 cursor-pointer rounded-t-md"
-                              />
+                              <Link to={`/product/${item?._id}`}>
+                                    <img
+                                          src={item?.image[0]}
+                                          alt="productImage"
+                                          className="w-full h-full hover:scale-110 duration-300 cursor-pointer"
+                                    />
+                              </Link>
                         </div>
 
                         {/* Sale Badge */}
@@ -55,7 +32,7 @@ const Product = ({ item }) => {
                   </div>
 
                   {/* Product Name and Price */}
-                  <div className="border border-gray-400 px-4 py-4">
+                  <div className="border border-gray-300 px-4 py-4">
                         <p className="text-lg  text-gray-800">{item?.name}</p>
                         <PriceContainer item={item} />
                         <AddToCartButton item={item} />

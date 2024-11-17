@@ -8,10 +8,11 @@ import { BsCartCheckFill } from "react-icons/bs";
 import { IoMenuSharp, IoCloseSharp } from "react-icons/io5";
 import { useState } from "react";
 import { TfiEmail } from "react-icons/tfi";
+import { useSelector } from "react-redux";
 
 const Header = () => {
       const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+      const { products } = useSelector((state) => state.orebi)
       const toggleMenu = () => {
             setIsMenuOpen(!isMenuOpen);
       };
@@ -49,7 +50,7 @@ const Header = () => {
                               </Link>
                               <Link to={"/cart"} className="text-lightext hover:text-primary hoverEffect relative">
                                     <BsCartCheckFill size={22} />
-                                    <span className="absolute items-center text-center justify-center rounded-full text-xs bottom-4 left-2 font-medium">0</span>
+                                    <span className="absolute items-center text-center justify-center rounded-full text-xs bottom-4 left-2 font-medium">{products?.length}</span>
                               </Link>
                         </div>
 
