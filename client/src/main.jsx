@@ -9,6 +9,9 @@ import Contact from './components/Contact'
 import SingleProduct from './components/SingleProduct'
 import Shop from './components/Shop'
 import CartProduct from './components/cart/CartProduct'
+import Login from './components/authentication/Login'
+import Register from './components/authentication/Register'
+import ProfilePage from './components/authentication/ProfilePage'
 
 const router = createBrowserRouter([{
   path: "/",
@@ -37,6 +40,18 @@ const router = createBrowserRouter([{
     {
       path: "/cart",
       element: <CartProduct />
+    },
+    {
+      path: "/login",
+      element: <Login />
+    },
+    {
+      path: "/signup",
+      element: <Register />
+    },
+    {
+      path: "/profile",
+      element: <ProfilePage />
     }
   ]
 }])

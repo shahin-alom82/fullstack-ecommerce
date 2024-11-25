@@ -11,11 +11,13 @@ import { TfiEmail } from "react-icons/tfi";
 import { useSelector } from "react-redux";
 
 const Header = () => {
+
       const [isMenuOpen, setIsMenuOpen] = useState(false);
       const { products } = useSelector((state) => state.orebi)
       const toggleMenu = () => {
             setIsMenuOpen(!isMenuOpen);
       };
+      const token = localStorage.getItem("token")
 
       return (
             <div className="sticky z-50 top-0 bg-white border-b border-gray-400">
@@ -45,13 +47,24 @@ const Header = () => {
                               ))}
 
                               {/* User & Cart */}
-                              <Link to={"/signin"} className="text-lightext hover:text-primary hoverEffect">
-                                    <FaUser size={20} />
-                              </Link>
                               <Link to={"/cart"} className="text-lightext hover:text-primary hoverEffect relative">
                                     <BsCartCheckFill size={22} />
                                     <span className="absolute items-center text-center justify-center rounded-full text-xs bottom-4 left-2 font-medium">{products?.length}</span>
                               </Link>
+                              {
+                                    token ? (
+                                          <Link to={"/profile"}>
+                                                <p className="text-lightext text-xl hover:text-primary hoverEffect"> Profile</p>
+                                          </Link>
+                                    )
+                                          :
+                                          (
+                                                <Link to={"/login"} className="text-lightext hover:text-primary hoverEffect">
+                                                      <FaUser size={20} />
+                                                </Link>
+                                          )
+                              }
+
                         </div>
 
                         {/* Menu Bar for Mobile */}

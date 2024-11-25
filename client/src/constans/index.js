@@ -6,7 +6,6 @@ export const nav = [
       { title: "ABOUT", path: "/about" },
       { title: "CONTACT", path: "/contact" },
       { title: "ORDERS", path: "/orders" },
-      // { title: "SIGNIN", path: "/signin" },
 ]
 
 export const bannerData = [
